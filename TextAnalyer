@@ -38,7 +38,7 @@ object Textanalyer {
         for(elem <- uniqueWordsSorted){
           if(elem.matches(word)) sign = true
         }
-        println(s"是否存在${word}:"+sign)
+        println("是否存在\""+s"${word}"+"\":"+sign)
       }
     }
 
