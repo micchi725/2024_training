@@ -1,0 +1,55 @@
+import scala.io.StdIn
+
+object Textanalyer {
+  def main(args: Array[String]): Unit = {
+    //输入待分析的文本
+    println("请输入英文句子")
+    val text:String = scala.io.StdIn.readLine()
+    //var exi
+
+    case class TextAnalyzer(){
+      //判断句子中的单词总数
+      val allWord: List[String] = text.split("\\W+").toList //分割字符串，得到所有单词的列表
+      def wordCount(str: String): Int = {
+        val wordcount: Int = allWord.length //单词总数计数器
+        wordcount  //返回单词总数
+      }
+
+      //判断大写字母数量
+      def upperCaseLetters(str: String): Int = {
+        var uppercount: Int = 0 //大写字母计数器
+
+        for(elem <- allWord ){ //对每个单词进行判断
+          var initial = elem.head    //提取每个单词的首字母
+          if (initial.isUpper) uppercount += 1 //首字母大写则计数器加1
+        }
+        uppercount
+      }
+
+      //提取所有不重复的单词
+      def uniqueWordsSorted(): List[String] = {
+        val uniqueWords = allWord.distinct //得到不重复的单词列表
+        val uniqueWordsSorted = uniqueWords.sortBy(x => x.toLowerCase) //不考虑大小写，按单词首字母顺序排列
+        uniqueWordsSorted
+      }
+
+      //检查给定的单词是否存在
+      def containsWord(word: String): Unit = {
+        var sign: Boolean = false
+        for(elem <- uniqueWordsSorted){
+          if(elem.matches(word)) sign = true
+        }
+        println(s"是否存在${word}:"+sign)
+      }
+    }
+
+    //实例化，进行测试
+    val result = TextAnalyzer()
+    println("单词数量："+result.wordCount(text))  //输出单词数量
+    println("大写字母数量："+result.upperCaseLetters(text))
+    println("不重复的单词列表："+result.uniqueWordsSorted().mkString("[\"" , "\",\"" , "\"]"))
+    result.containsWord("Exercise")
+    result.containsWord("Code")
+
+  }
+}
